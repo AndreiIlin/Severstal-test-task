@@ -29,7 +29,7 @@ export const MainPage = () => {
             </NavbarComponent>
           </Grid.Col>
           <Grid.Col xs={9} className={classes.editorSide}>
-            {notes.length ? <EditorComponent /> : null}
+            <EditorComponent />
           </Grid.Col>
         </Grid>
       </Container>

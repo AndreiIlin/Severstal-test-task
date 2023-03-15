@@ -14,21 +14,20 @@ export const NavbarItem: FC<NavbarItemProps> = ({ note }) => {
   const removeNote = useNotesStore(state => state.removeNote);
   const saveNoteChanges = useNotesStore(state => state.saveNoteChanges);
   const editor = useEditorStore(state => state.editor);
-  const editorContent = editor?.getJSON();
 
   // @ts-ignore
   const content = note.text.content[0].content[0].text;
 
   const handleSwitchNode = () => {
-    if (editorContent) {
-      // @ts-ignore
-      if (editor?.isEmpty) {
-        removeNote(activeNoteId);
-      } else {
+    if (editor?.isEmpty) {
+      removeNote(activeNoteId);
+    } else {
+      if (editor) {
+        const editorContent = editor.getJSON();
         saveNoteChanges(activeNoteId, editorContent);
       }
-      changeActiveNote(note.id);
     }
+    changeActiveNote(note.id);
   };
 
   return (
