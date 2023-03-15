@@ -1,7 +1,6 @@
 import { Button } from '@mantine/core';
 import { useEditorStore } from 'entities/editor';
 import { useNotesStore } from 'entities/notes';
-import { saveNote } from 'features/saveNote';
 import React, { FC } from 'react';
 
 export const SaveNoteButton: FC = () => {
@@ -10,7 +9,11 @@ export const SaveNoteButton: FC = () => {
   const saveNoteChanges = useNotesStore(state => state.saveNoteChanges);
   const handleSaveNote = () => {
     if (editor) {
-      saveNote(editor, activeNoteId, saveNoteChanges);
+      const editorContent = editor.getJSON();
+      if (editor.isEmpty) {
+        return;
+      }
+      saveNoteChanges(activeNoteId, editorContent);
     }
   };
   return (
